@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,6 +6,8 @@ import {
   Button,
   TextInput,
   SafeAreaView,
+  KeyboardAvoidingView, // Added KeyboardAvoidingView
+  Platform, // Added Platform
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import Otp from './Otp';
@@ -25,28 +27,36 @@ const Phone = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.innerContainer}>
-        {confirm ? (
-          <Otp confirm={confirm} />
-        ) : (
-          <>
-            <Text style={{fontSize: 26, marginBottom: 20}}>
-              Phone Authentication
-            </Text>
-            <TextInput
-              style={styles.input}
-              value={phoneNumber}
-              onChangeText={text => setPhoneNumber(text)}
-              placeholder="Enter phone number"
-              keyboardType="phone-pad"
-            />
-            <Button
-              title="Phone Number Sign In"
-              onPress={() => signInWithPhoneNumber()}
-            />
-          </>
-        )}
-      </View>
+      <KeyboardAvoidingView // Wrapped in KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // Added behavior prop
+        style={styles.container}
+      >
+        <View style={styles.innerContainer}>
+          {confirm ? (
+            <Otp confirm={confirm} />
+          ) : (
+            <>
+              <Text style={{fontSize: 26, marginBottom: 20, color: 'black'}}>
+                Phone Authentication
+              </Text>
+              <TextInput
+                style={styles.input}
+                value={phoneNumber}
+                onChangeText={text => setPhoneNumber(text)}
+                placeholder="Enter phone no, start with +91"
+                keyboardType="phone-pad"
+                placeholderTextColor="black"
+                autoFocus
+                
+              />
+              <Button
+                title="Phone Number Sign In"
+                onPress={() => signInWithPhoneNumber()}
+              />
+            </>
+          )}
+        </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
@@ -68,6 +78,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     marginBottom: 20,
+    color:"black"
   },
 });
 

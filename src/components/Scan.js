@@ -7,19 +7,14 @@ const Scan = () => {
     const { hasPermission, requestPermission } = useCameraPermission();
     const device = useCameraDevice('back');
     const [linkDetected, setLinkDetected] = useState(false);
+    const [scannedLink, setScannedLink] = useState('');
 
     useEffect(() => {
         requestPermission();
     }, []);
 
-    const navigateToURLInWebView = (url) => {
-       
-        return (
-            <WebView
-                source={{ uri: url }}
-                style={{ flex: 1 }}
-            />
-        );
+    const handleNavigateToURLInWebView = () => {
+        setLinkDetected(true);
     };
 
     const codeScanner = useCodeScanner({
@@ -32,14 +27,15 @@ const Scan = () => {
                     `Do you want to navigate to this link?\n${scannedLink}`,
                     [
                         {
-                            text: 'Cancel',
+                            text: 'No',
                             onPress: () => console.log('Cancel Pressed'),
                             style: 'cancel',
                         },
                         {
-                            text: 'OK', onPress: () => {
-                                setLinkDetected(true);
-                                navigateToURLInWebView(scannedLink);
+                            text: 'Yes', onPress: () => {
+                                console.log("Pressed Yes")
+                                setScannedLink(scannedLink);
+                                handleNavigateToURLInWebView();
                             }
                         },
                     ],
@@ -58,12 +54,20 @@ const Scan = () => {
     }
 
     return (
-        <Camera
-            style={StyleSheet.absoluteFill}
-            device={device}
-            isActive={true}
-            codeScanner={codeScanner}
-        />
+        <View style={StyleSheet.absoluteFill}>
+            <Camera
+                style={StyleSheet.absoluteFill}
+                device={device}
+                isActive={true}
+                codeScanner={codeScanner}
+            />
+            {linkDetected && (
+                <WebView
+                    source={{ uri: scannedLink }}
+                    style={StyleSheet.absoluteFill}
+                />
+            )}
+        </View>
     );
 };
 

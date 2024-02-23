@@ -1,30 +1,40 @@
 import React, { useState } from 'react';
-import { TextInput, Button, StyleSheet , View } from 'react-native';
-
+import { TextInput, Button, StyleSheet, View } from 'react-native';
+import Scan from './Scan';
 
 const Otp = (props) => {
   const [code, setCode] = useState('');
+  const [verified, setVerified] = useState(false);
 
   async function confirmCode(confirm) {
     try {
       await confirm.confirm(code);
-      console.log('code verifed.');
-      
+      console.log('code verified.');
+      setVerified(true); 
     } catch (error) {
       console.log('Invalid code.');
-      <qr/>
     }
   }
 
   return (
     <View style={styles.innerContainer}>
-      <TextInput
-        style={styles.input}
-        value={code}
-        onChangeText={(text) => setCode(text)}
-        placeholder="Enter OTP"
-      />
-      <Button title="Confirm Code" onPress={() => confirmCode(props.confirm)} />
+      {verified ? ( 
+        <Scan />
+      ) : (
+        <>
+          <TextInput
+            style={styles.input}
+            value={code}
+            onChangeText={(text) => setCode(text)}
+            placeholder="Enter OTP"
+            placeholderTextColor="black"
+          />
+          <Button
+            title="Confirm Code"
+            onPress={() => confirmCode(props.confirm)}
+          />
+        </>
+      )}
     </View>
   );
 };
@@ -41,6 +51,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     marginBottom: 20,
+    color:"black"
   },
 });
 

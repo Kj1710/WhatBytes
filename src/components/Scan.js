@@ -1,99 +1,38 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Button, Linking} from 'react-native';
-import {
-  useCameraPermission,
-  useCameraDevice,
-  Camera,
-} from 'react-native-vision-camera';
+import {StyleSheet, Text, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {useCameraDevice, useCameraPermission , useCodeScanner ,Camera}  from 'react-native-vision-camera';
 
 const Scan = () => {
-  const device = useCameraDevice('back');
   const {hasPermission, requestPermission} = useCameraPermission();
-  const [scanned, setScanned] = useState(false);
-  const [data, setData] = useState(null);
+  const device = useCameraDevice('back');
 
   useEffect(() => {
-    const handleCameraPermission = async () => {
-      if (!hasPermission) {
-        const status = await requestPermission();
-
-        if (status !== 'granted') {
-          // Permission denied
-          Linking.openSettings(); 
-          alert(
-            'Camera permission is required to scan QR codes. Please grant permission in app settings.',
-          );
-        }
-      }
-      console.log('Next Page');
-    };
-
-    handleCameraPermission();
+    requestPermission();
   }, []);
 
-  const handleBarcodesDetected = ({barcodes}) => {
-    if (barcodes.length && !scanned) {
-      setScanned(true);
-      setData(barcodes[0].data); 
-    }
-  };
-
-  const handlePressOpenLink = () => {
-    if (data) {
-      Linking.openURL(data); 
-    } else {
-      alert('No QR code was scanned.');
-    }
-  };
-
+  const codeScanner = useCodeScanner({
+    codeTypes: ['qr', 'ean-13'],
+    onCodeScanned: codes => {
+      console.log(`Scanned ${codes[0].value} codes!`);
+    },
+  });
+  if (device == null) {
+    return (
+      <View>
+        <Text>Device NOt Found</Text>
+      </View>
+    );
+  }
   return (
-    <View style={styles.container}>
-  {hasPermission ? (
-    <View style={styles.cameraView}>
-      {scanned ? (
-        <View>
-          <Button title="Open Link" onPress={handlePressOpenLink} />
-        </View>
-      ) : (
-        <View style={{ flex: 1 }}>
-          <Camera
-            style={StyleSheet.absoluteFill}
-            device={device}
-            isActive={true}
-          />
-          <Button
-            title="Click to Scan QR Code"
-            onPress={() => {
-             
-              setScanned(true); // Assuming this function updates 'scanned' state
-            }}
-          />
-        </View>
-      )}
-    </View>
-  ) : (
-    <View style={styles.permissionView}>
-      <Text>Camera permission is required to scan QR codes.</Text>
-      <Button title="Request Permission" onPress={requestPermission} />
-    </View>
-  )}
-</View>
-
+    <Camera
+      style={StyleSheet.absoluteFill}
+      device={device}
+      isActive={true}
+      codeScanner={codeScanner}
+    />
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cameraView: {
-    
-  },
-  permissionView: {
-    alignItems: 'center',
-  },
-});
-
 export default Scan;
+
+const styles = StyleSheet.create({});

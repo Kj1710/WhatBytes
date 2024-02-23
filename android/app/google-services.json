@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "1090045065465",
-    "project_id": "fir-672bb",
-    "storage_bucket": "fir-672bb.appspot.com"
+    "project_number": "1002173847771",
+    "project_id": "whatbytes-f699a",
+    "storage_bucket": "whatbytes-f699a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1090045065465:android:0d25f932ec0b21ae824a28",
+        "mobilesdk_app_id": "1:1002173847771:android:85a6f4adc2ed49c62494fe",
         "android_client_info": {
           "package_name": "com.whatbytes"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA5ABifRDJPBuQmGHBgDm-hedtmqxn7o5A"
+          "current_key": "AIzaSyCcCN1hG8yctsIouiJ5QzjygOV7trAy_2k"
         }
       ],
       "services": {

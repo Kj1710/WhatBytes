@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {TextInput, Button, StyleSheet, View} from 'react-native';
+import {TextInput, Button, StyleSheet, View ,Text} from 'react-native';
 import Scan from './Scan';
 
 const Otp = props => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,8 +6,8 @@ import {
   Button,
   TextInput,
   SafeAreaView,
-  KeyboardAvoidingView, // Added KeyboardAvoidingView
-  Platform, // Added Platform
+  KeyboardAvoidingView, 
+  Platform, 
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import Otp from './Otp';
@@ -27,10 +27,9 @@ const Phone = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView // Wrapped in KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // Added behavior prop
-        style={styles.container}
-      >
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}>
         <View style={styles.innerContainer}>
           {confirm ? (
             <Otp confirm={confirm} />
@@ -47,7 +46,6 @@ const Phone = () => {
                 keyboardType="phone-pad"
                 placeholderTextColor="black"
                 autoFocus
-                
               />
               <Button
                 title="Phone Number Sign In"
@@ -78,7 +76,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     marginBottom: 20,
-    color:"black"
+    color: 'black',
   },
 });
 

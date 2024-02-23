@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { TextInput, Button, StyleSheet, View } from 'react-native';
+import React, {useState} from 'react';
+import {TextInput, Button, StyleSheet, View} from 'react-native';
 import Scan from './Scan';
 
-const Otp = (props) => {
+const Otp = props => {
   const [code, setCode] = useState('');
   const [verified, setVerified] = useState(false);
 
@@ -10,7 +10,7 @@ const Otp = (props) => {
     try {
       await confirm.confirm(code);
       console.log('code verified.');
-      setVerified(true); 
+      setVerified(true);
     } catch (error) {
       console.log('Invalid code.');
     }
@@ -18,14 +18,18 @@ const Otp = (props) => {
 
   return (
     <View style={styles.innerContainer}>
-      {verified ? ( 
+      {verified ? (
         <Scan />
       ) : (
         <>
+          <Text style={{fontSize: 26, marginBottom: 20, color: 'black'}}>
+            Provide The OTP
+          </Text>
+
           <TextInput
             style={styles.input}
             value={code}
-            onChangeText={(text) => setCode(text)}
+            onChangeText={text => setCode(text)}
             placeholder="Enter OTP"
             placeholderTextColor="black"
           />
@@ -51,7 +55,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     marginBottom: 20,
-    color:"black"
+    color: 'black',
   },
 });
 

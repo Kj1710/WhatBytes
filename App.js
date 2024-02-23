@@ -1,15 +1,19 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-
+import React from 'react';
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import Phone from './src/components/Phone';
 
 const App = () => {
   return (
-    <View>
-      <Text>App</Text>
-    </View>
-  )
-}
+    <SafeAreaView style={styles.container}>
+      <Phone />
+    </SafeAreaView>
+  );
+};
 
-export default App
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
-const styles = StyleSheet.create({})
+export default App;

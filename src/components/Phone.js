@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,13 +8,11 @@ import {
   SafeAreaView,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
-import {useNavigation} from '@react-navigation/native';
 import Otp from './Otp';
 
 const Phone = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [confirm, setConfirm] = useState(null);
-  const navigation = useNavigation();
 
   async function signInWithPhoneNumber() {
     try {
@@ -26,9 +24,27 @@ const Phone = () => {
   }
 
   return (
-  <>
-  
-  </>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.innerContainer}>
+        {confirm ? (
+          <Otp confirm={confirm} />
+        ) : (
+          <>
+            <TextInput
+              style={styles.input}
+              value={phoneNumber}
+              onChangeText={(text) => setPhoneNumber(text)}
+              placeholder="Enter phone number"
+              keyboardType="phone-pad"
+            />
+            <Button
+              title="Phone Number Sign In"
+              onPress={() => signInWithPhoneNumber()}
+            />
+          </>
+        )}
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -43,20 +59,12 @@ const styles = StyleSheet.create({
     width: '80%',
     paddingHorizontal: 20,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
   input: {
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
     padding: 10,
     marginBottom: 20,
-  },
-  buttonContainer: {
-    marginTop: 10,
   },
 });
 

@@ -1,31 +1,47 @@
-import {TextInput, Button ,StyleSheet} from 'react-native';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import { TextInput, Button, StyleSheet , View } from 'react-native';
+import qr from './qr';
 
 const Otp = (props) => {
-    const [code, setCode] = useState('');
-    console.log('code :', code);
-  
-    async function confirmCode(confirm) {
-      console.log('confirm :', confirm);
-      try {
-        await confirm.confirm(code);
-      } catch (error) {
-        console.log('Invalid code.');
-      }
+  const [code, setCode] = useState('');
+
+  async function confirmCode(confirm) {
+    try {
+      await confirm.confirm(code);
+      console.log('code verifed.');
+      <qr/>
+    } catch (error) {
+      console.log('Invalid code.');
+      <qr/>
     }
-  
-    return (
-      <>
-        <TextInput
-          style={{borderWidth: 1, marginBottom: 20}}
-          value={code}
-          onChangeText={text => setCode(text)}
-        />
-        <Button title="Confirm Code" onPress={() => confirmCode(props.confirm)} />
-      </>
-    );
-  };
+  }
 
-export default Otp
+  return (
+    <View style={styles.innerContainer}>
+      <TextInput
+        style={styles.input}
+        value={code}
+        onChangeText={(text) => setCode(text)}
+        placeholder="Enter OTP"
+      />
+      <Button title="Confirm Code" onPress={() => confirmCode(props.confirm)} />
+    </View>
+  );
+};
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  innerContainer: {
+    width: '80%',
+    paddingHorizontal: 20,
+    alignItems: 'center',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 20,
+  },
+});
+
+export default Otp;

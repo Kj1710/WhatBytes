@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -30,10 +30,13 @@ const Phone = () => {
           <Otp confirm={confirm} />
         ) : (
           <>
+            <Text style={{fontSize: 26, marginBottom: 20}}>
+              Phone Authentication
+            </Text>
             <TextInput
               style={styles.input}
               value={phoneNumber}
-              onChangeText={(text) => setPhoneNumber(text)}
+              onChangeText={text => setPhoneNumber(text)}
               placeholder="Enter phone number"
               keyboardType="phone-pad"
             />

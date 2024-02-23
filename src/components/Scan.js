@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const qr = () => {
+const Scan = () => {
   return (
     <View>
-      <Text>qr</Text>
+      <Text>Scan</Text>
     </View>
   )
 }
 
-export default qr
+export default Scan
 
 const styles = StyleSheet.create({})

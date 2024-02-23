@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextInput, Button, StyleSheet , View } from 'react-native';
-import qr from './qr';
+
 
 const Otp = (props) => {
   const [code, setCode] = useState('');
@@ -9,7 +9,7 @@ const Otp = (props) => {
     try {
       await confirm.confirm(code);
       console.log('code verifed.');
-      <qr/>
+      
     } catch (error) {
       console.log('Invalid code.');
       <qr/>
